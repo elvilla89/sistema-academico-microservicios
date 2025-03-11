@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: sistema_academico
+    ports:
+      - "5432:5432"
+
+  estudiantes:
+    build: ./servicios/estudiantes
+    ports:
+      - "4001:4001"
+    depends_on:
+      - db
+
+  cursos:
+    build: ./servicios/cursos
+    ports:
+      - "4002:4002"
+    depends_on:
+      - db
+
+  matriculas:
+    build: ./servicios/matriculas
+    ports:
+      - "4003:4003"
+    depends_on:
+      - db
